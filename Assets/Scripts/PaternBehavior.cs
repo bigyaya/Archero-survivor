@@ -7,13 +7,7 @@ public class PaternBehavior : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Vector2[] directions = new Vector2[4]
-        {
-        Vector2.up,
-        Vector2.down,
-        Vector2.right,
-        Vector2.left
-        };
+        
    
     }
 }
