@@ -43,4 +43,13 @@ public class PlayerShooting : MonoBehaviour
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         projectileRb.velocity = direction * projectileSpeed;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Partie perdue !");
+            // TODO: Gérer la perte de la partie
+        }
+    }
 }
