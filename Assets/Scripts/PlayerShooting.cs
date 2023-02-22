@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    public GameManagerScript gameManager;
+    private bool isDead; 
+
     public GameObject projectilePrefab; // Préfabriqué de projectile
     public float projectileSpeed = 10f; // Vitesse du projectile
     public float fireRate = 2f; // Temps en secondes entre chaque tir automatique
@@ -23,6 +26,12 @@ public class PlayerShooting : MonoBehaviour
 
             // Mettre à jour le temps restant jusqu'au prochain tir
             nextFireTime = Time.time + 1 / fireRate;
+        }
+
+        if (isDead == true)
+        {
+            gameManager.GameOver();
+            Destroy(gameObject);
         }
     }
 
@@ -48,6 +57,11 @@ public class PlayerShooting : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            isDead = true;
+
+            
+            //gameManager.GameOver();
+
             Debug.Log("Partie perdue !");
             // TODO: Gérer la perte de la partie
         }

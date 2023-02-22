@@ -1,26 +1,56 @@
+using System.Collections;
 using UnityEngine;
-
 public class Enemy : MonoBehaviour
 {
-    // Vitesse de déplacement de l'ennemi
     public float speed = 5f;
+    public float destroyDelay = 1f;
+    public Color hitColor = Color.red;
 
-    // Position du joueur
+    private Rigidbody2D rb;
+    private bool isHit = false;
     public Transform target;
 
-    // Méthode appelée au démarrage du script
     private void Start()
     {
-        // On recherche le GameObject ayant le tag "Player"
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Méthode appelée à chaque frame
     private void Update()
     {
-        // On utilise la méthode MoveTowards pour faire avancer l'ennemi vers le joueur
-        // La méthode renvoie un Vector2 qui représente la position de l'ennemi après déplacement
-        // On utilise la vitesse (speed) et le temps écoulé depuis la dernière frame (Time.deltaTime) pour déterminer la distance à parcourir
-        transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        if (!isHit)
+        {
+            MoveTowardsPlayer();
+        }
+    }
+
+    private void MoveTowardsPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            Vector2 direction = (player.transform.position - transform.position).normalized;
+            rb.velocity = direction * speed;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            // Change la couleur de l'ennemi en rouge
+            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+            sprite.color = hitColor;
+
+            // Arrête l'ennemi
+            rb.velocity = Vector2.zero;
+
+            // Détruit l'ennemi après un délai
+            Destroy(gameObject, destroyDelay);
+
+            // Indique que l'ennemi a été touché
+            isHit = true;
+        }
     }
 }
+
