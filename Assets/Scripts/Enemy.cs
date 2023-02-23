@@ -80,6 +80,10 @@ public class Enemy : MonoBehaviour
             // Appelle la fonction EnemyKilled du GameManagerScript
             gameManager.EnemyKilled();
 
+            // Appeler l'événement CreateBonusBullet
+            GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().CreateBonusBullet.Invoke();
+
+
             // Indique que l'ennemi a été touché
             isHit = true;
 

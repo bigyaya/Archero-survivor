@@ -1,51 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class RewardsEffects : MonoBehaviour
 {
+    public GameObject bonusBulletPrefab;
+    public float bonusBulletSpeed = 1f;
 
-    public UnityEvent bonusBulletEvent;
-    public UnityEvent doubleAttackEvent;
+    public UnityEvent CreateBonusBullet;
+    public UnityEvent DoubleAttack;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        bonusBulletEvent.AddListener(CreateBonusBullet);
-        doubleAttackEvent.AddListener(DoubleAttack);
+        CreateBonusBullet.AddListener(SpawnBonusBullet);
+        DoubleAttack.AddListener(OnDoubleAttack);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnBonusBullet()
     {
-        
+        Debug.Log("CreateBonusBullet invoked");
     }
 
-    public void CreateBonusBullet()
+    public void OnDoubleAttack()
     {
-        
-        Debug.Log("Create bonus bullet reward!");
+        Debug.Log("DoubleAttack invoked");
     }
 
-    public void DoubleAttack()
+    public void SpawnBonusBullet(Vector3 position)
     {
-        Debug.Log("Double attack reward!");
+        // Générer une direction aléatoire
+        Vector3 direction = Random.insideUnitCircle.normalized;
+
+        // Instancier le projectile bonus et le lancer dans la direction aléatoire
+        GameObject bonusBullet = Instantiate(bonusBulletPrefab, position, Quaternion.identity);
+        bonusBullet.GetComponent<Rigidbody2D>().velocity = direction * bonusBulletSpeed;
+
+        // Appeler l'événement CreateBonusBullet
+        CreateBonusBullet.Invoke();
     }
-
-    public delegate void RewardEffect();
-
-    public void ChooseBonusBullet()
-    {
-        RewardEffect reward = GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().CreateBonusBullet;
-        // Add reward effect to a delegate or list of delegates
-    }
-
-    public void ChooseDoubleAttack()
-    {
-        RewardEffect reward = GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().DoubleAttack;
-        // Add reward effect to a delegate or list of delegates
-    }
- 
-
 }
