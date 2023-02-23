@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 public class Enemy : MonoBehaviour
 {
+    public GameManagerScript gameManager;
+
     public float speed = 5f;
     public float destroyDelay = 1f;
     public Color hitColor = Color.red;
@@ -12,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManagerScript>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -34,6 +37,32 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private IEnumerator Flash()
+    {
+        Debug.Log("Starting flash effect");
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        Color originalColor = sprite.color;
+
+        while (isHit)
+        {
+            sprite.color = hitColor;
+            yield return new WaitForSeconds(0.1f);
+            sprite.color = originalColor;
+            yield return new WaitForSeconds(0.1f);
+        }
+        Debug.Log("Stopping flash effect");
+    }
+
+    //void OnStateExit()
+    //{
+    //    // Do death animation
+    //    // ...
+
+    //    // Trigger CreateBonusBullet reward
+    //    GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().bonusBulletEvent.Invoke();
+    //}
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Bullet"))
@@ -48,8 +77,14 @@ public class Enemy : MonoBehaviour
             // Détruit l'ennemi après un délai
             Destroy(gameObject, destroyDelay);
 
+            // Appelle la fonction EnemyKilled du GameManagerScript
+            gameManager.EnemyKilled();
+
             // Indique que l'ennemi a été touché
             isHit = true;
+
+            // Lance l'effet de clignotement
+            StartCoroutine(Flash());
         }
     }
 }

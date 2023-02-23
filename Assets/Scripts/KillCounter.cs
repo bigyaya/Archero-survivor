@@ -5,6 +5,7 @@ using TMPro;
 
 public class KillCounter : MonoBehaviour
 {
+
     public static KillCounter instance;
 
     public TMP_Text killText;

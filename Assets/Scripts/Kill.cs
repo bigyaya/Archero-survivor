@@ -22,7 +22,7 @@ public class Kill : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             KillCounter.instance.IncreaseKill(value);
         }
     }

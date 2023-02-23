@@ -68,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
                 break;
         }
         // Instancie un ennemi à la position calculée et avec une vitesse aléatoire
-        GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        GameObject newEnemy = Instantiate(enemyPrefab , spawnPosition, Quaternion.identity);
         Enemy enemyScript = newEnemy.GetComponent<Enemy>();
         enemyScript.target = GameObject.FindGameObjectWithTag("Player").transform;
 

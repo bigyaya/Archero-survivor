@@ -53,13 +53,31 @@ public class PlayerShooting : MonoBehaviour
         projectileRb.velocity = direction * projectileSpeed;
     }
 
+    //void OnStateExit()
+    //{
+    //    // Do shooting animation
+    //    // ...
+
+    //    // Trigger DoubleAttack reward
+    //    GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().doubleAttackEvent.Invoke();
+    //}
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            isDead = true;
+            Destroy(collision.gameObject);
 
-            
+            gameManager.enemiesKilled++;
+            if (gameManager.enemiesKilled == 10)
+            {
+                // Afficher le panel de récompense
+                gameManager.ShowRewardScreen();
+            }
+
+
+            isDead = true;           
             //gameManager.GameOver();
 
             Debug.Log("Partie perdue !");
