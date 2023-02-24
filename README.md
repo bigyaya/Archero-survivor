@@ -4,4 +4,4 @@
 
 Projet de formation d'un Vampire Survivor-like sous Unity.
 
-Déplacements du joueur, tir de projectiles, affichages du game over et des récompences réussi mais pas les events lors du choix des récompences.
+Déplacements du joueur, tir de projectiles, affichages du game over et des récompences réussi mais pas les events lors du choix des récompences et le restart ne marche plus.
