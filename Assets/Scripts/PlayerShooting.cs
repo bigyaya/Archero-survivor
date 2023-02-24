@@ -17,9 +17,8 @@ public class PlayerShooting : MonoBehaviour
 
 
     private void Start()
-    {
-        GameObject.Find("RewardManager").GetComponent<RewardsEffects>().CreateBonusBullet.AddListener(OnCreateBonusBullet);
-        GameObject.Find("RewardManager").GetComponent<RewardsEffects>().DoubleAttack.AddListener(OnDoubleAttack);
+    {      
+            
     }
 
     // Mettre à jour la logique de tir à chaque frame
@@ -47,8 +46,8 @@ public class PlayerShooting : MonoBehaviour
         //    GameObject bullet2 = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         //    bullet2.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
 
-        //    // Appeler l'événement DoubleAttack
-        //    GameObject.Find("RewardManager").GetComponent<RewardsEffects>().DoubleAttack.Invoke();
+        //// Appeler l'événement DoubleAttack
+        //GameObject.Find("RewardManager").GetComponent<RewardsEffects>().DoubleAttack.Invoke();
         //}
 
         if (isDead == true)
@@ -76,25 +75,7 @@ public class PlayerShooting : MonoBehaviour
         projectileRb.velocity = direction * projectileSpeed;
     }
 
-    //void OnStateExit()
-    //{
-    //    // Do shooting animation
-    //    // ...
 
-    //    // Trigger DoubleAttack reward
-    //    GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().doubleAttackEvent.Invoke();
-    //}
-
-
-    private void OnCreateBonusBullet()
-    {
-        Debug.Log("CreateBonusBullet invoked");
-    }
-
-    private void OnDoubleAttack()
-    {
-        Debug.Log("DoubleAttack invoked");
-    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -112,7 +93,7 @@ public class PlayerShooting : MonoBehaviour
 
 
             isDead = true;           
-            //gameManager.GameOver();
+            gameManager.GameOver();
 
             Debug.Log("Partie perdue !");
             // TODO: Gérer la perte de la partie

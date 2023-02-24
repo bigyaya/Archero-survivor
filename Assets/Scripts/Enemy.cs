@@ -37,30 +37,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private IEnumerator Flash()
-    {
-        Debug.Log("Starting flash effect");
-        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
-        Color originalColor = sprite.color;
-
-        while (isHit)
-        {
-            sprite.color = hitColor;
-            yield return new WaitForSeconds(0.1f);
-            sprite.color = originalColor;
-            yield return new WaitForSeconds(0.1f);
-        }
-        Debug.Log("Stopping flash effect");
-    }
-
-    //void OnStateExit()
+    //private IEnumerator Flash()
     //{
-    //    // Do death animation
-    //    // ...
+    //    Debug.Log("Starting flash effect");
+    //    SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+    //    Color originalColor = sprite.color;
 
-    //    // Trigger CreateBonusBullet reward
-    //    GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().bonusBulletEvent.Invoke();
+    //    while (isHit)
+    //    {
+    //        sprite.color = hitColor;
+    //        yield return new WaitForSeconds(0.1f);
+    //        sprite.color = originalColor;
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //    Debug.Log("Stopping flash effect");
     //}
+
+   
 
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -80,15 +73,18 @@ public class Enemy : MonoBehaviour
             // Appelle la fonction EnemyKilled du GameManagerScript
             gameManager.EnemyKilled();
 
+
+
             // Appeler l'événement CreateBonusBullet
-            GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().CreateBonusBullet.Invoke();
+            //GameObject.Find("RewardsManager").GetComponent<RewardsEffects>().CreateBonusBullet.Invoke();
+
 
 
             // Indique que l'ennemi a été touché
             isHit = true;
 
             // Lance l'effet de clignotement
-            StartCoroutine(Flash());
+            //StartCoroutine(Flash());
         }
     }
 }

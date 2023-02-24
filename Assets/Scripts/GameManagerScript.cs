@@ -24,6 +24,8 @@ public class GameManagerScript : MonoBehaviour
         
     }
 
+
+
     // Appelé chaque fois qu'un ennemi est tué
     public void EnemyKilled()
     {
@@ -35,19 +37,19 @@ public class GameManagerScript : MonoBehaviour
     }
 
     // Met le jeu en pause et affiche l'interface avec deux choix
-    void PauseGame()
-    {
-        Time.timeScale = 0f; // Met le temps du jeu à zéro pour le mettre en pause
-        rewardScreenUI.SetActive(true);
-    }
+void PauseGame()
+{
+    Time.timeScale = 0f; // Met le temps du jeu à zéro pour le mettre en pause
+    rewardScreenUI.SetActive(true);
+}
 
-    // Fonction appelée lorsque le joueur choisit une récompense
-    public void RewardChosen(int rewardIndex)
-    {
-        // rewardIndex peut être utilisé pour déterminer quelle récompense a été choisie
-        rewardScreenUI.SetActive(false);
-        Time.timeScale = 1f; // Reprend le jeu en remettant le temps du jeu à sa valeur normale
-    }
+// Fonction appelée lorsque le joueur choisit une récompense
+public void RewardChosen(int rewardIndex)
+{
+    // rewardIndex peut être utilisé pour déterminer quelle récompense a été choisie
+    rewardScreenUI.SetActive(false);
+    Time.timeScale = 1f; // Reprend le jeu en remettant le temps du jeu à sa valeur normale
+}
 
     public void GameOver()
     {

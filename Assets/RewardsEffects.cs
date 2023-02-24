@@ -11,12 +11,24 @@ public class RewardsEffects : MonoBehaviour
 
     private void Start()
     {
-        CreateBonusBullet.AddListener(SpawnBonusBullet);
+    CreateBonusBullet.AddListener(SpawnBonusBullet);
         DoubleAttack.AddListener(OnDoubleAttack);
     }
 
+    
+
     public void SpawnBonusBullet()
     {
+        //// Générer une direction aléatoire
+        //Vector3 direction = Random.insideUnitCircle.normalized;
+
+        //// Instancier le projectile bonus et le lancer dans la direction aléatoire
+        //GameObject bonusBullet = Instantiate(bonusBulletPrefab, position, Quaternion.identity);
+        //bonusBullet.GetComponent<Rigidbody2D>().velocity = direction * bonusBulletSpeed;
+
+        //// Appeler l'événement CreateBonusBullet
+        //CreateBonusBullet.Invoke();
+
         Debug.Log("CreateBonusBullet invoked");
     }
 
@@ -25,16 +37,5 @@ public class RewardsEffects : MonoBehaviour
         Debug.Log("DoubleAttack invoked");
     }
 
-    public void SpawnBonusBullet(Vector3 position)
-    {
-        // Générer une direction aléatoire
-        Vector3 direction = Random.insideUnitCircle.normalized;
-
-        // Instancier le projectile bonus et le lancer dans la direction aléatoire
-        GameObject bonusBullet = Instantiate(bonusBulletPrefab, position, Quaternion.identity);
-        bonusBullet.GetComponent<Rigidbody2D>().velocity = direction * bonusBulletSpeed;
-
-        // Appeler l'événement CreateBonusBullet
-        CreateBonusBullet.Invoke();
-    }
+  
 }
